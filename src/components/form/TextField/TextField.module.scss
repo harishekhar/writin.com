@@ -1,0 +1,252 @@
+@import 'styles/config';
+
+$border-color-inactive: rgb(0 0 0 / 38%);
+$border-color-active: #4724fb;
+
+%transition-label {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.container {
+  @include flex-column;
+
+  position: relative;
+
+  .label {
+    @include sf-pro(16, 24);
+    @extend %transition-label;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--black-60);
+    pointer-events: none;
+    background-color: var(--bg-color-light);
+    transform: translate(16px, 15px) scale(1);
+    transform-origin: top left;
+  }
+
+  .text-field {
+    @include sf-pro(16, 24);
+
+    padding: 15px;
+    margin: 0;
+    color: var(--text-color-light-bg);
+
+    // for multi line text - textarea
+    resize: none;
+    background-color: var(--bg-color-light);
+    border: 1px solid $border-color-inactive;
+    border-radius: 4px;
+    outline: none;
+
+    &::placeholder {
+      @include sf-pro(16, 24);
+
+      color: var(--black-60);
+    }
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      &~.label {
+        @extend %transition-label;
+
+        padding: 0 4px;
+        transform: translate(12px, -9px) scale(0.75);
+      }
+    }
+
+    &.has-no-label {
+
+      &,
+      &:not(:placeholder-shown) {
+        padding: 15px;
+      }
+    }
+
+    &:focus {
+      border-color: var(--primary-color);
+      outline: 1px solid var(--primary-color);
+
+      &~.label {
+        color: var(--primary-color);
+      }
+    }
+
+    &:not(:focus) {
+      &::placeholder {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .text-field.has-error {
+    border-color: var(--error-color-light-bg);
+
+    &:focus {
+      outline: 1px solid var(--error-color-light-bg);
+    }
+
+    &~.label {
+      color: var(--error-color-light-bg);
+    }
+  }
+
+  .text-field.dark-bg {
+    color: var(--text-color-dark-bg);
+    background-color: var(--text-dropdown-bg);
+    border-color: transparent;
+    border-width: 2px;
+
+    &::placeholder {
+      @include sf-pro(16, 24);
+
+      color: var(--text-color-dark-bg-60);
+    }
+
+    &~.label {
+      color: var(--text-color-dark-bg-60);
+      background-color: var(--text-dropdown-bg);
+    }
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      padding: 20px 14px 10px;
+
+      &~.label {
+        padding: 0;
+        font-family: $ff-sf-compact-regular;
+        transform: translate(16px, 6px) scale(0.75);
+      }
+    }
+
+    &.has-no-label {
+
+      &,
+      &:not(:placeholder-shown) {
+        padding: 15px;
+      }
+    }
+
+    &:not(:placeholder-shown) {
+      &~.label {
+        color: var(--text-color-dark-bg-40);
+      }
+    }
+
+    &:focus {
+      border-color: var(--primary-color-light);
+      outline: none;
+
+      &~.label {
+        color: var(--primary-color-light);
+      }
+    }
+  }
+
+  .text-field.dark-bg.has-error {
+    border-color: var(--error-color-dark-bg);
+    border-width: 2px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &~.label {
+      color: var(--error-color-dark-bg);
+    }
+  }
+
+  .helper {
+    @include sf-pro(12, 20);
+
+    padding: 0 15px;
+    margin-top: 3px;
+    color: var(--text-color-light-bg);
+    white-space: pre;
+  }
+
+  .text-field.has-error~.helper {
+    color: var(--error-color-light-bg);
+  }
+
+  .text-field.dark-bg~.helper {
+    padding: 0 14px;
+    color: var(--text-color-dark-bg);
+  }
+
+  .text-field.dark-bg.has-error~.helper {
+    color: var(--error-color-dark-bg);
+  }
+}
+
+.compact-container {
+  @include flex-column;
+
+  position: relative;
+
+  .label {
+    @include sf-compact(14, 14);
+
+    order: 1;
+    margin-bottom: 2px;
+    color: var(--black);
+  }
+
+  .helper {
+    @include sf-compact(12, 14);
+
+    order: 3;
+    margin-top: 4px;
+  }
+
+  .text-field {
+    @include sf-compact(14, 14);
+
+    order: 2;
+    padding: 7px 10px;
+    color: var(--text-color-light-bg);
+    background-color: transparent;
+    border: none;
+    border: 1px solid $border-color-inactive;
+    border-radius: 4px;
+    outline: none;
+
+    &:focus {
+      border-color: var(--primary-color);
+    }
+
+    &::placeholder {
+      @include sf-compact(14, 14);
+
+      color: var(--black-60);
+    }
+
+    &.has-error~.helper {
+      color: var(--error-color-light-bg);
+    }
+
+    &.dark-bg {
+      color: var(--text-color-dark-bg);
+      background-color: var(--text-dropdown-bg);
+
+      &~.label {
+        @include sf-compact(12, 14);
+
+        color: var(--white-60);
+      }
+
+      &.has-error~.helper {
+        color: var(--error-color-dark-bg);
+      }
+
+      &:focus {
+        border-color: var(--primary-color-light);
+      }
+
+      &::placeholder {
+        color: var(--white-60);
+      }
+    }
+  }
+}
