@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "./login.module.scss";
-import { Link, Button } from "components";
+import { Link, Button, TextField, HorizontalLine } from "components";
 
 const Login: NextPage = () => {
   return (
@@ -18,7 +18,7 @@ const Login: NextPage = () => {
         <div className="hidden lg:flex w-full lg:w-1/2 justify-around items-center bg-cover bg-[url('https://images.unsplash.com/photo-1650825556125-060e52d40bd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')]"></div>
         {/* Second Half  */}
         <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8 font-sans">
-          <div className="w-full px-8 md:px-32 lg:px-24">
+          <div className="w-full px-44 md:px-44 lg:px-32">
             <div className="flex  w-full p-5 flex-col ">
               <div className="flex justify-center identifier__icon w-full ">
                 <Image
@@ -29,68 +29,37 @@ const Login: NextPage = () => {
                   className="identifier__icon--src"
                 />
               </div>
-              <div className="flex identifier__info justify-center text-sm font-normal text-gray-600 mt-7">
-                Reset your password using your recovery email id{" "}
+              <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
+                Sign in with your data that you entered during your
+                registration.
               </div>
             </div>
 
             <form className="bg-white rounded-md">
-              <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-md	">
-                <input
+              <div className="flex items-center mb-8 w-full">
+                <TextField
                   id="email"
-                  className="pl-2 w-full outline-none border-none"
                   type="email"
                   name="email"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div className="flex items-center border-2 mb-12 py-2 px-3 rounded-md	">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <input
-                  className="pl-2 w-full outline-none border-none"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
+                  placeholder="Enter your mobile number (10 digits) or email ID"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="block w-full bg-primary text-white mt-5 py-2 rounded-md	 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 font-semibold mb-2"
+                isFullWidth={true}
+                state="primary"
+                classNames="py-3"
               >
                 Login
               </Button>
-              <div className="flex identifier__info justify-center text-sm font-normal text-gray-600 mt-7">
+              <div className="flex identifier__info text-xs font-normal mt-2 text-neutral">
                 By proceeding, you agree to our &nbsp;
                 <Link href="/"> Terms of Services </Link> &nbsp; and &nbsp;
                 <Link href="/"> Privacy Policy </Link>
               </div>
-
-              <div className="flex justify-between mt-4">
-                <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">
-                  Forgot Password ?
-                </span>
-
-                <a
-                  href="#"
-                  className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
-                >
-                  Don&#39;t have an account yet?
-                </a>
-              </div>
             </form>
+            <HorizontalLine centerText="OR" />
           </div>
         </div>
       </div>
