@@ -20,9 +20,6 @@ type TextFieldOnlyProps = {
 export type TextFieldInputProps = TextFieldOnlyProps &
   React.InputHTMLAttributes<HTMLInputElement>;
 
-export type TextFieldTextAreaProps = TextFieldOnlyProps &
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>;
-
 /**
  * A component to take user input using input element and provide feedback on the basis of user input
  */
@@ -42,11 +39,12 @@ export const TextField = React.forwardRef<
   } = props;
 
   return (
-    <div>
+    <>
       <input
         ref={ref as React.ForwardedRef<HTMLInputElement>}
         placeholder={placeholder}
         {...(rest as React.InputHTMLAttributes<HTMLInputElement>)}
+        className="border border-gray-2 p-3 rounded-md w-full box-border"
       />
       {helperText && <label className={styles.helper}>{helperText}</label>}
       {label && (
@@ -54,7 +52,7 @@ export const TextField = React.forwardRef<
           {label}
         </label>
       )}
-    </div>
+    </>
   );
 });
 

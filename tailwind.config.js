@@ -12,8 +12,10 @@ module.exports = {
       neutral: "#545563",
       gray: {
         1: "#545563",
+        2: "#C7C8D2",
         5: "#333333",
       },
+      black: "#000",
       white: "#fff",
     },
     extend: {},
