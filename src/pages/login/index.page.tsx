@@ -2,7 +2,13 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "./login.module.scss";
-import { Link, Button, TextField, HorizontalLine } from "components";
+import {
+  Link,
+  Button,
+  SocialButton,
+  TextField,
+  HorizontalLine,
+} from "components";
 
 const Login: NextPage = () => {
   return (
@@ -53,13 +59,35 @@ const Login: NextPage = () => {
               >
                 Login
               </Button>
-              <div className="flex identifier__info text-xs font-normal mt-2 text-neutral">
+              <div className="flex identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
                 By proceeding, you agree to our &nbsp;
                 <Link href="/"> Terms of Services </Link> &nbsp; and &nbsp;
                 <Link href="/"> Privacy Policy </Link>
               </div>
             </form>
-            <HorizontalLine centerText="OR" />
+            <HorizontalLine className="mt-3 leading-5" centerText="OR" />
+            <div className="flex mt-3">
+              <SocialButton
+                typeOf="google"
+                isFullWidth={true}
+                state="light"
+                classNames="py-3 mr-2 text-base"
+                iconSize="large"
+                iconType="google"
+              >
+                Login with Google
+              </SocialButton>
+              <SocialButton
+                typeOf="linkedin"
+                state="light"
+                isFullWidth={true}
+                classNames="py-3 ml-2 bg-white text-base"
+                iconSize="large"
+                iconType="linkedin"
+              >
+                Login with LinkedIn
+              </SocialButton>
+            </div>
           </div>
         </div>
       </div>

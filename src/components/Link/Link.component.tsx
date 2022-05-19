@@ -8,7 +8,7 @@ import styles from "./Link.module.scss";
 export type LinkProps = NextLinkProps & {
   className?: string;
   target?: "_blank" | "_self" | "_parent" | "_top" | "framename";
-  children?: any;
+  children?: React.ReactNode;
 };
 
 export const Link: React.FC<LinkProps> = ({
