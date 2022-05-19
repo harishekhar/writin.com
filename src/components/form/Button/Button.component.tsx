@@ -29,7 +29,7 @@ export type ButtonStyleProps = {
   /** Does this button cover 100% width of its parent? (100%) */
   isFullWidth?: boolean;
   /** Which optional icon to be rendered before the children node? */
-  iconType?: IconType;
+  iconType?: string;
   /** What is the size of icon? */
   iconSize?: IconSize;
   /** isLoading? */
@@ -81,11 +81,15 @@ export const Button: React.FC<ButtonProps> = React.forwardRef<
         ["text-white"]: state == "primary",
       }
     );
-
     return (
       <button ref={ref} className={classnames} {...props}>
         {isLoading && <Icon iconType={IconType.SPINNER} size={size} />}
-        {iconType && <Icon iconType={iconType} size={iconSize} />}
+        {iconType && (
+          <Icon
+            iconType={IconType[iconType as keyof typeof IconType]}
+            size={iconSize}
+          />
+        )}
         {iconType ? <span>{children}</span> : children}
       </button>
     );
@@ -127,21 +131,24 @@ export const SocialButton: React.FC<ButtonProps> = React.forwardRef<
         ["text-white"]: state == "primary",
         ["bg-primary"]: state == "primary",
         ["border"]: state == "light",
+        ["border-gray-2"]: state == "light",
         ["text-neutral"]: state == "light",
       }
     );
-    console.log(iconType);
-
-    // debugger;
 
     return (
       <button ref={ref} className={classes} {...props}>
-        <div className="flex justify-around content-center	">
-          <div className="">
+        <div className="flex justify-evenly items-center">
+          <div className="flex items-center">
             {isLoading && <Icon iconType={IconType.SPINNER} size={size} />}
-            {iconType && <Icon iconType={iconType} size={iconSize} />}
+            {iconType && (
+              <Icon
+                iconType={IconType[iconType as keyof typeof IconType]}
+                size={iconSize}
+              />
+            )}
           </div>
-          <div className="flex">
+          <div className="flex items-center">
             {iconType ? <span>{children}</span> : children}
           </div>
         </div>

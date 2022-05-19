@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "./login.module.scss";
+import { Icon, IconType } from "components/Icon/Icon.component";
+
 import {
   Link,
   Button,
@@ -21,73 +23,80 @@ const Login: NextPage = () => {
 
       <div className="h-screen flex">
         {/* First half  */}
-        <div className="hidden lg:flex w-full lg:w-1/2 justify-around items-center bg-cover bg-[url('https://images.unsplash.com/photo-1650825556125-060e52d40bd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')]"></div>
+        <div className="hidden sm:hidden md:hidden lg:flex w-full lg:w-3/5 justify-around items-center bg-cover bg-[url('https://images.unsplash.com/photo-1650825556125-060e52d40bd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')]"></div>
         {/* Second Half  */}
-        <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8 font-sans">
-          <div className="w-full px-44 md:px-44 lg:px-32">
-            <div className="flex  w-full p-5 flex-col ">
-              <div className="flex justify-center identifier__icon w-full ">
-                <Image
-                  src="/vercel.svg"
-                  alt="icon"
-                  width={74}
-                  height={74}
-                  className="identifier__icon--src"
-                />
-              </div>
-              <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
-                Sign in with your data that you entered during your
-                registration.
-              </div>
-            </div>
-
-            <form className="bg-white rounded-md">
-              <div className="flex items-center mb-8 w-full">
-                <TextField
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your mobile number (10 digits) or email ID"
-                />
+        <div className="flex w-full lg:w-2/5 flex-col">
+          <div className="flex justify-center flex-grow items-center bg-white space-y-8 font-sans">
+            <div className="w-full px-5 sm:px-20 md:px-16 lg:px-8 xl:px-10">
+              <div className="flex  w-full p-5 flex-col ">
+                <div className="flex justify-center identifier__icon w-full ">
+                  <Image
+                    src="/vercel.svg"
+                    alt="icon"
+                    width={74}
+                    height={74}
+                    className="identifier__icon--src"
+                  />
+                </div>
+                <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
+                  Sign in with your data that you entered during your
+                  registration.
+                </div>
               </div>
 
-              <Button
-                type="submit"
-                isFullWidth={true}
-                state="primary"
-                classNames="py-3"
-              >
-                Login
-              </Button>
-              <div className="flex identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
-                By proceeding, you agree to our &nbsp;
-                <Link href="/"> Terms of Services </Link> &nbsp; and &nbsp;
-                <Link href="/"> Privacy Policy </Link>
+              <form className="bg-white rounded-md">
+                <div className="flex items-center mb-8 w-full">
+                  <TextField
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your mobile number (10 digits) or email ID"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  isFullWidth={true}
+                  state="primary"
+                  classNames="py-3"
+                >
+                  Next
+                </Button>
+                <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
+                  By proceeding, you agree to our
+                  <Link href="/"> Terms of Services </Link> and
+                  <Link href="/"> Privacy Policy </Link>
+                </div>
+              </form>
+              <HorizontalLine className="mt-3 leading-5" centerText="OR" />
+              <div className="flex mt-3">
+                <SocialButton
+                  typeOf="google"
+                  isFullWidth={true}
+                  state="light"
+                  classNames="py-3 mr-2 text-base"
+                  iconSize="large"
+                  iconType="GOOGLE"
+                >
+                  Login with Google
+                </SocialButton>
+                <SocialButton
+                  typeOf="linkedin"
+                  state="light"
+                  isFullWidth={true}
+                  classNames="py-3 ml-2 bg-white text-base"
+                  iconSize="large"
+                  iconType="LINKEDIN"
+                >
+                  Login with LinkedIn
+                </SocialButton>
               </div>
-            </form>
-            <HorizontalLine className="mt-3 leading-5" centerText="OR" />
-            <div className="flex mt-3">
-              <SocialButton
-                typeOf="google"
-                isFullWidth={true}
-                state="light"
-                classNames="py-3 mr-2 text-base"
-                iconSize="large"
-                iconType="google"
-              >
-                Login with Google
-              </SocialButton>
-              <SocialButton
-                typeOf="linkedin"
-                state="light"
-                isFullWidth={true}
-                classNames="py-3 ml-2 bg-white text-base"
-                iconSize="large"
-                iconType="linkedin"
-              >
-                Login with LinkedIn
-              </SocialButton>
             </div>
+          </div>
+
+          <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
+            Don&apos;t have an account? &nbsp;{" "}
+            <Link href="/signup"> Sign up </Link>
           </div>
         </div>
       </div>
