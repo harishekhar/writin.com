@@ -1,66 +1,68 @@
-import React, { useMemo } from 'react';
-import cx from 'classnames';
+import React, { useMemo } from "react";
+import cx from "classnames";
 
-import styles from './Icon.module.scss';
+import styles from "./Icon.module.scss";
 
 export enum IconType {
-  VIDEO_ADD = 'video-add',
-  VIDEO_ADD_FILLED = 'video-add-filled',
-  VIDEO_QUEUE = 'video-queue',
-  PRESENTATION_CHART = 'presentation-chart',
-  USER_SQUARE = 'user-square',
-  CAMCODER = 'camcoder',
-  IMAGE = 'photo',
-  REELS = 'reels',
-  SETTINGS = 'settings',
-  GEAR = 'gear',
-  TAG = 'tag',
-  STAR = 'star',
-  PENCIL = 'pencil',
-  TRASH_CANCEL = 'trash-cancel',
-  SHARE = 'share',
-  LINK = 'link',
-  EYE = 'eye',
-  FACEBOOK_ROUNDED = 'facebook-rounded',
-  YOUTUBE = 'youtube',
-  INSTAGRAM = 'instagram',
-  MENU_HORIZONTAL = 'menu-horizontal',
-  SEARCH = 'search',
-  CHEVRON_RIGHT = 'chevron-right',
-  CHEVRON_UP = 'chevron-up',
-  CHEVRON_DOWN = 'chevron-down',
-  CHECK = 'check',
-  CHECK_CIRCLE = 'check-circle',
-  WINDOW_CHECK = 'window-check',
-  CLOSE = 'close',
-  SHOW = 'show',
-  SIMULCAST = 'simulcase',
-  THUMBNAIL = 'thumbnail',
-  TRAILER = 'trailer',
-  SPINNER = 'spinner',
-  EDIT = 'edit',
-  DRAG = 'drag',
-  ALERT_CIRCLE = 'alert-circle',
-  LINK_RECTANGLE = 'link-rectangle',
-  FILE_DOWNLOAD = 'file-download',
-  EXPORT = 'export',
-  TRASH = 'trash',
-  CLOUD_UPLOAD = 'cloud-upload',
-  CLOUD_CROSS = 'cloud-cross',
-  TRIANGLE_DOWN = 'triangle-down',
-  TRIANGLE_UP = 'triangle-up',
-  UNMUTED = 'unmuted',
-  MUTED = 'muted',
-  MINI_PLAYER = 'mini-player',
+  VIDEO_ADD = "video-add",
+  VIDEO_ADD_FILLED = "video-add-filled",
+  VIDEO_QUEUE = "video-queue",
+  PRESENTATION_CHART = "presentation-chart",
+  USER_SQUARE = "user-square",
+  CAMCODER = "camcoder",
+  IMAGE = "photo",
+  REELS = "reels",
+  SETTINGS = "settings",
+  GEAR = "gear",
+  TAG = "tag",
+  STAR = "star",
+  PENCIL = "pencil",
+  TRASH_CANCEL = "trash-cancel",
+  SHARE = "share",
+  LINK = "link",
+  EYE = "eye",
+  FACEBOOK_ROUNDED = "facebook-rounded",
+  YOUTUBE = "youtube",
+  INSTAGRAM = "instagram",
+  MENU_HORIZONTAL = "menu-horizontal",
+  SEARCH = "search",
+  CHEVRON_RIGHT = "chevron-right",
+  CHEVRON_UP = "chevron-up",
+  CHEVRON_DOWN = "chevron-down",
+  CHECK = "check",
+  CHECK_CIRCLE = "check-circle",
+  WINDOW_CHECK = "window-check",
+  CLOSE = "close",
+  SHOW = "show",
+  SIMULCAST = "simulcase",
+  THUMBNAIL = "thumbnail",
+  TRAILER = "trailer",
+  SPINNER = "spinner",
+  EDIT = "edit",
+  DRAG = "drag",
+  ALERT_CIRCLE = "alert-circle",
+  LINK_RECTANGLE = "link-rectangle",
+  FILE_DOWNLOAD = "file-download",
+  EXPORT = "export",
+  TRASH = "trash",
+  CLOUD_UPLOAD = "cloud-upload",
+  CLOUD_CROSS = "cloud-cross",
+  TRIANGLE_DOWN = "triangle-down",
+  TRIANGLE_UP = "triangle-up",
+  UNMUTED = "unmuted",
+  MUTED = "muted",
+  MINI_PLAYER = "mini-player",
+  GOOGLE = "google",
+  LINKEDIN = "linkedin",
 }
 
 export type IconSize =
-  | 'auto'
-  | 'x-small'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xlarge';
+  | "auto"
+  | "x-small"
+  | "small"
+  | "medium"
+  | "large"
+  | "xlarge";
 
 export interface IconProps extends React.HTMLAttributes<HTMLOrSVGElement> {
   iconType: IconType;
@@ -70,7 +72,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLOrSVGElement> {
 
 export const Icon: React.FC<IconProps> = ({
   iconType,
-  size = 'medium',
+  size = "medium",
   className,
 }) => {
   const classNames = cx(styles.icon, className, IconSizeClassName[size]);
@@ -760,17 +762,58 @@ export const Icon: React.FC<IconProps> = ({
             />
           </svg>
         );
-      case IconType.MINI_PLAYER:
+      case IconType.GOOGLE:
         return (
-          <svg width="100%" height="100%" viewBox="0 0 38 38" fill="none">
-            <g>
+          <svg
+            width="22"
+            height="21"
+            viewBox="0 0 22 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#clip0_1686_432)">
               <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M17 8H16.9562C15.5932 7.99999 14.5092 7.99999 13.6346 8.07144C12.739 8.14462 11.9753 8.29768 11.2761 8.65396C10.1471 9.2292 9.2292 10.1471 8.65396 11.2761C8.29768 11.9753 8.14462 12.739 8.07144 13.6346C7.99999 14.5092 7.99999 15.5932 8 16.9562V17V21V21.0438C7.99999 22.4068 7.99999 23.4908 8.07144 24.3654C8.14462 25.261 8.29768 26.0247 8.65396 26.7239C9.2292 27.8529 10.1471 28.7708 11.2761 29.346C11.9753 29.7023 12.739 29.8554 13.6346 29.9286C14.5091 30 15.5931 30 16.9561 30H16.9562H17H21H21.0438H21.0439C22.4069 30 23.4909 30 24.3654 29.9286C25.261 29.8554 26.0247 29.7023 26.7239 29.346C27.8529 28.7708 28.7708 27.8529 29.346 26.7239C29.7023 26.0247 29.8554 25.261 29.9286 24.3654C30 23.4909 30 22.4069 30 21.0439V21.0438V21V17V16.9562V16.9561C30 15.5931 30 14.5091 29.9286 13.6346C29.8554 12.739 29.7023 11.9753 29.346 11.2761C28.7708 10.1471 27.8529 9.2292 26.7239 8.65396C26.0247 8.29768 25.261 8.14462 24.3654 8.07144C23.4908 7.99999 22.4068 7.99999 21.0438 8H21H17ZM12.184 10.436C12.5543 10.2473 13.0255 10.1279 13.7974 10.0648C14.581 10.0008 15.5834 10 17 10H21C22.4166 10 23.419 10.0008 24.2026 10.0648C24.9745 10.1279 25.4457 10.2473 25.816 10.436C26.5686 10.8195 27.1805 11.4314 27.564 12.184C27.7527 12.5543 27.8721 13.0255 27.9352 13.7974C27.9992 14.581 28 15.5834 28 17V21C28 22.4166 27.9992 23.419 27.9352 24.2026C27.8721 24.9745 27.7527 25.4457 27.564 25.816C27.1805 26.5686 26.5686 27.1805 25.816 27.564C25.4457 27.7527 24.9745 27.8721 24.2026 27.9352C23.419 27.9992 22.4166 28 21 28H17C15.5834 28 14.581 27.9992 13.7974 27.9352C13.0255 27.8721 12.5543 27.7527 12.184 27.564C11.4314 27.1805 10.8195 26.5686 10.436 25.816C10.2473 25.4457 10.1279 24.9745 10.0648 24.2026C10.0008 23.419 10 22.4166 10 21V17C10 15.5834 10.0008 14.581 10.0648 13.7974C10.1279 13.0255 10.2473 12.5543 10.436 12.184C10.8195 11.4314 11.4314 10.8195 12.184 10.436ZM20 18L19.968 18C19.5294 18 19.1509 18 18.8376 18.0213C18.5078 18.0439 18.1779 18.0934 17.8519 18.2284C17.1169 18.5328 16.5328 19.1169 16.2284 19.8519C16.0934 20.1779 16.0439 20.5078 16.0213 20.8376C16 21.1509 16 21.5293 16 21.968V21.968L16 22L16 22.032V22.032C16 22.4707 16 22.8491 16.0213 23.1624C16.0439 23.4922 16.0934 23.8221 16.2284 24.1481C16.5328 24.8831 17.1169 25.4672 17.8519 25.7716C18.1779 25.9066 18.5078 25.9561 18.8376 25.9787C19.1509 26 19.5294 26 19.968 26H20H22H22.032C22.4706 26 22.8491 26 23.1624 25.9787C23.4922 25.9561 23.8221 25.9066 24.1481 25.7716C24.8831 25.4672 25.4672 24.8831 25.7716 24.1481C25.9066 23.8221 25.9561 23.4922 25.9786 23.1624C26 22.8491 26 22.4707 26 22.0321V22.032V22V21.968V21.9679C26 21.5293 26 21.1509 25.9786 20.8376C25.9561 20.5078 25.9066 20.1779 25.7716 19.8519C25.4672 19.1169 24.8831 18.5328 24.1481 18.2284C23.8221 18.0934 23.4922 18.0439 23.1624 18.0213C22.8491 18 22.4706 18 22.032 18L22 18H20ZM18.6173 20.0761C18.6589 20.0589 18.7458 20.0323 18.9738 20.0167C19.2107 20.0005 19.5204 20 20 20H22C22.4796 20 22.7893 20.0005 23.0262 20.0167C23.2542 20.0323 23.3411 20.0589 23.3827 20.0761C23.6277 20.1776 23.8224 20.3723 23.9239 20.6173C23.9411 20.6589 23.9677 20.7458 23.9833 20.9738C23.9995 21.2107 24 21.5204 24 22C24 22.4796 23.9995 22.7893 23.9833 23.0262C23.9677 23.2542 23.9411 23.3411 23.9239 23.3827C23.8224 23.6277 23.6277 23.8224 23.3827 23.9239C23.3411 23.9411 23.2542 23.9677 23.0262 23.9833C22.7893 23.9995 22.4796 24 22 24H20C19.5204 24 19.2107 23.9995 18.9738 23.9833C18.7458 23.9677 18.6589 23.9411 18.6173 23.9239C18.3723 23.8224 18.1776 23.6277 18.0761 23.3827C18.0589 23.3411 18.0323 23.2542 18.0167 23.0262C18.0005 22.7893 18 22.4796 18 22C18 21.5204 18.0005 21.2107 18.0167 20.9738C18.0323 20.7458 18.0589 20.6589 18.0761 20.6173C18.1776 20.3723 18.3723 20.1776 18.6173 20.0761Z"
-                fill="currentColor"
+                d="M20.9134 10.6304C20.9134 9.95058 20.8562 9.26714 20.7343 8.59839H10.9526V12.4492H16.5541C16.3217 13.6912 15.5748 14.7898 14.4812 15.488V17.9866H17.823C19.7855 16.2449 20.9134 13.6728 20.9134 10.6304Z"
+                fill="#4285F4"
+              />
+              <path
+                d="M10.9528 20.4007C13.7497 20.4007 16.1084 19.5151 17.827 17.9866L14.4851 15.488C13.5554 16.0979 12.355 16.4433 10.9566 16.4433C8.2511 16.4433 5.95716 14.6833 5.13408 12.3169H1.68555V14.8927C3.44601 18.2695 7.03173 20.4007 10.9528 20.4007V20.4007Z"
+                fill="#34A853"
+              />
+              <path
+                d="M5.13039 12.3169C4.69599 11.0749 4.69599 9.7301 5.13039 8.48814V5.91235H1.68567C0.214803 8.738 0.214803 12.067 1.68567 14.8927L5.13039 12.3169V12.3169Z"
+                fill="#FBBC04"
+              />
+              <path
+                d="M10.9528 4.35805C12.4313 4.336 13.8602 4.87247 14.931 5.85722L17.8918 3.00218C16.017 1.30459 13.5287 0.37128 10.9528 0.400675C7.03173 0.400675 3.44601 2.53185 1.68555 5.91234L5.13027 8.48813C5.94954 6.11811 8.24729 4.35805 10.9528 4.35805V4.35805Z"
+                fill="#EA4335"
               />
             </g>
+            <defs>
+              <clipPath id="clip0_1686_432">
+                <rect
+                  width="20.7407"
+                  height="20"
+                  fill="white"
+                  transform="translate(0.375 0.400002)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        );
+      case IconType.LINKEDIN:
+        return (
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18.5236 0H1.47639C1.08483 0 0.709301 0.155548 0.432425 0.432425C0.155548 0.709301 0 1.08483 0 1.47639V18.5236C0 18.9152 0.155548 19.2907 0.432425 19.5676C0.709301 19.8445 1.08483 20 1.47639 20H18.5236C18.9152 20 19.2907 19.8445 19.5676 19.5676C19.8445 19.2907 20 18.9152 20 18.5236V1.47639C20 1.08483 19.8445 0.709301 19.5676 0.432425C19.2907 0.155548 18.9152 0 18.5236 0ZM5.96111 17.0375H2.95417V7.48611H5.96111V17.0375ZM4.45556 6.1625C4.11447 6.16058 3.7816 6.05766 3.49895 5.86674C3.21629 5.67582 2.99653 5.40544 2.8674 5.08974C2.73826 4.77404 2.70554 4.42716 2.77336 4.09288C2.84118 3.7586 3.0065 3.4519 3.24846 3.21148C3.49042 2.97107 3.79818 2.80772 4.13289 2.74205C4.4676 2.67638 4.81426 2.71133 5.12913 2.84249C5.44399 2.97365 5.71295 3.19514 5.90205 3.47901C6.09116 3.76288 6.19194 4.09641 6.19167 4.4375C6.19488 4.66586 6.15209 4.89253 6.06584 5.104C5.97959 5.31547 5.85165 5.50742 5.68964 5.66839C5.52763 5.82936 5.33487 5.95607 5.12285 6.04096C4.91083 6.12585 4.68389 6.16718 4.45556 6.1625ZM17.0444 17.0458H14.0389V11.8278C14.0389 10.2889 13.3847 9.81389 12.5403 9.81389C11.6486 9.81389 10.7736 10.4861 10.7736 11.8667V17.0458H7.76667V7.49306H10.6583V8.81667H10.6972C10.9875 8.22917 12.0042 7.225 13.5556 7.225C15.2333 7.225 17.0458 8.22083 17.0458 11.1375L17.0444 17.0458Z"
+              fill="#0A66C2"
+            />
           </svg>
         );
       default:
@@ -781,13 +824,13 @@ export const Icon: React.FC<IconProps> = ({
   return SVGElement
     ? React.cloneElement(SVGElement, {
         className: classNames,
-        xmlns: 'http://www.w3.org/2000/svg',
+        xmlns: "http://www.w3.org/2000/svg",
       })
     : null;
 };
 
 export const IconSizeClassName = {
-  ['x-small']: styles['x-small'],
+  ["x-small"]: styles["x-small"],
   small: styles.small,
   medium: styles.medium,
   large: styles.large,
@@ -795,4 +838,4 @@ export const IconSizeClassName = {
   auto: styles.auto,
 };
 
-Icon.displayName = 'Icon';
+Icon.displayName = "Icon";

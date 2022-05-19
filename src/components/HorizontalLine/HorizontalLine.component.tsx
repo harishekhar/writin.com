@@ -1,18 +1,23 @@
+import classNames from "classnames";
 import React from "react";
+import cx from "classnames";
+
 type HorizontalLineProps = {
   textColor?: string;
   centerText?: string;
   backgroundColor?: string;
   height?: number;
+  className?: string;
 };
 
-export const HorizontalLine = React.forwardRef<
-  HTMLHRElement,
-  HorizontalLineProps
->((props, ref) => {
+export const HorizontalLine: React.FC<HorizontalLineProps> = ({
+  className,
+  ...props
+}) => {
+  const classes = cx("flex", "items-center", className);
   return (
     <>
-      <div className="flex items-center">
+      <div className={classes}>
         <div className="flex-grow bg-gray-2 h-px"></div>
         {props.centerText && (
           <div className="flex-grow-0 mx-5 text text-xs text-neutral">
@@ -23,6 +28,6 @@ export const HorizontalLine = React.forwardRef<
       </div>
     </>
   );
-});
+};
 
 HorizontalLine.displayName = "HorizontalLine";
