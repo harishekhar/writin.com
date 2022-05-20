@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import Link from "next/link";
 
-const Home: NextPage = () => {
+const Account: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -19,7 +19,10 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{" "}
+          <div className="font-bold text-primary">
+            {" "}
+            You are in Authorized Section
+          </div>{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -70,4 +73,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Account;

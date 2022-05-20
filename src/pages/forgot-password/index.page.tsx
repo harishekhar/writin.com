@@ -38,9 +38,8 @@ const Login: NextPage = () => {
                     className="identifier__icon--src"
                   />
                 </div>
-                <div className="flex text-base identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
-                  Sign in with your data that you entered during your
-                  registration.
+                <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
+                  Enter your registered email id
                 </div>
               </div>
 
@@ -48,19 +47,9 @@ const Login: NextPage = () => {
                 <div className="flex items-center mb-8 w-full">
                   <TextField
                     id="email"
-                    type="text"
+                    type="email"
                     name="email"
-                    placeholder="Enter your mobile number (10 digits) or email ID"
-                    label="Enter your mobile number (10 digits) or email ID"
-                  />
-                </div>
-                <div className="flex items-center mb-8 w-full">
-                  <TextField
-                    id="password"
-                    type="password"
-                    name="password"
-                    placeholder="min. 8 characters"
-                    label="Password"
+                    placeholder="e.g. alwin@gmail.com"
                   />
                 </div>
 
@@ -70,7 +59,7 @@ const Login: NextPage = () => {
                   state="primary"
                   classNames="py-3"
                 >
-                  Login
+                  Submit
                 </Button>
                 <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
                   By proceeding, you agree to our
@@ -105,22 +94,11 @@ const Login: NextPage = () => {
           </div>
 
           <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
-            <div className="flex justify-center flex-col">
-              <div className="flex justify-center mb-10">
-                <Link href="/forgot-password" className="font-bold">
-                  {" "}
-                  Forgot password?{" "}
-                </Link>
-              </div>
-
-              <div className="flex">
-                Don&apos;t have an account? &nbsp;{" "}
-                <Link href="/signup" className="font-bold">
-                  {" "}
-                  Sign up{" "}
-                </Link>
-              </div>
-            </div>
+            Don&apos;t have an account? &nbsp;{" "}
+            <Link href="/sign-up" className="font-bold">
+              {" "}
+              Sign up{" "}
+            </Link>
           </div>
         </div>
       </div>
