@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "./login.module.scss";
-import { Icon, IconType } from "components/Icon/Icon.component";
 
 import {
   Link,
@@ -12,7 +11,7 @@ import {
   HorizontalLine,
 } from "components";
 
-const Login: NextPage = () => {
+const SignUp: NextPage = () => {
   return (
     <>
       <Head>
@@ -47,6 +46,15 @@ const Login: NextPage = () => {
               <form className="bg-white rounded-md">
                 <div className="flex items-center mb-8 w-full">
                   <TextField
+                    id="fullName"
+                    type="text"
+                    name="fullName"
+                    placeholder="e.g. Ruhi Verma"
+                    label="Full Name"
+                  />
+                </div>
+                <div className="flex items-center mb-8 w-full">
+                  <TextField
                     id="email"
                     type="text"
                     name="email"
@@ -59,7 +67,7 @@ const Login: NextPage = () => {
                     id="password"
                     type="password"
                     name="password"
-                    placeholder="min. 8 characters"
+                    placeholder="min. 6 characters"
                     label="Password"
                   />
                 </div>
@@ -70,7 +78,7 @@ const Login: NextPage = () => {
                   state="primary"
                   classNames="py-3"
                 >
-                  Login
+                  Sign Up
                 </Button>
                 <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
                   By proceeding, you agree to our
@@ -88,7 +96,7 @@ const Login: NextPage = () => {
                   iconSize="large"
                   iconType="GOOGLE"
                 >
-                  Login with Google
+                  Sign up with Google
                 </SocialButton>
                 <SocialButton
                   typeOf="linkedin"
@@ -98,29 +106,18 @@ const Login: NextPage = () => {
                   iconSize="large"
                   iconType="LINKEDIN"
                 >
-                  Login with LinkedIn
+                  Sign up with LinkedIn
                 </SocialButton>
               </div>
             </div>
           </div>
 
           <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
-            <div className="flex justify-center flex-col">
-              <div className="flex justify-center mb-10">
-                <Link href="/forgot-password" className="font-bold">
-                  {" "}
-                  Forgot password?{" "}
-                </Link>
-              </div>
-
-              <div className="flex">
-                Don&apos;t have an account? &nbsp;{" "}
-                <Link href="/signup" className="font-bold">
-                  {" "}
-                  Sign up{" "}
-                </Link>
-              </div>
-            </div>
+            Already registered user? &nbsp;
+            <Link href="/identifier" className="font-bold">
+              {" "}
+              Login{" "}
+            </Link>
           </div>
         </div>
       </div>
@@ -128,4 +125,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default SignUp;

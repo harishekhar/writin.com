@@ -39,20 +39,24 @@ export const TextField = React.forwardRef<
   } = props;
 
   return (
-    <>
-      <input
-        ref={ref as React.ForwardedRef<HTMLInputElement>}
-        placeholder={placeholder}
-        {...(rest as React.InputHTMLAttributes<HTMLInputElement>)}
-        className="border border-gray-2 p-3 rounded-md w-full box-border"
-      />
-      {helperText && <label className={styles.helper}>{helperText}</label>}
-      {label && (
-        <label className={styles.label} htmlFor={props.id}>
-          {label}
-        </label>
-      )}
-    </>
+    <div className="w-full">
+      <div className="text-sm mb-1">
+        {label && (
+          <label className={styles.label} htmlFor={props.id}>
+            {label}
+          </label>
+        )}
+      </div>
+      <div className="w-full">
+        <input
+          ref={ref as React.ForwardedRef<HTMLInputElement>}
+          placeholder={placeholder}
+          {...(rest as React.InputHTMLAttributes<HTMLInputElement>)}
+          className="border border-gray-2 p-3 rounded-md w-full box-border"
+        />
+        {helperText && <label className={styles.helper}>{helperText}</label>}
+      </div>
+    </div>
   );
 });
 
