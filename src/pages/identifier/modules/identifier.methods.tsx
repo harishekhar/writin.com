@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { useState } from "react";
 import { IdentifierService } from "service";
+import { useRouter } from "next/router";
 
 interface submitOtp {
   identifier: string;
@@ -40,6 +41,7 @@ interface IdentifierMethods {
 const identifierService = new IdentifierService("v1");
 
 const IdentifierMethods = (): IdentifierMethods => {
+  const router = useRouter();
   const [loadingIdentifierButton, setLoadingIdentifierButton]: [
     boolean,
     (loadingIdentifierButton: boolean) => void
@@ -91,26 +93,19 @@ const IdentifierMethods = (): IdentifierMethods => {
       });
   };
 
-  const submitOtp = (data: submitOtp): void => {
+  const submitOtp = async (data: submitOtp): Promise<void> => {
     data.identifier = identifierHash.identifier || "";
-
     setLoadingOtpButton(true);
-    identifierService
-      .postVerifyOtp(data)
-      .then((data) => {
-        setTimeout(() => {
-          setPageView("identifier");
-          setLoadingOtpButton(false);
-          setIdentifierHash({});
-          setIdentifier({});
-        }, 200);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoadingOtpButton(false);
-      });
+    try {
+      const respData = await identifierService.postVerifyOtp(data);
+      delay(500);
+      setLoadingOtpButton(false);
+      setIdentifierHash({});
+      setIdentifier({});
+      router.push("/account");
+    } catch (error) {
+    } finally {
+    }
   };
 
   return {

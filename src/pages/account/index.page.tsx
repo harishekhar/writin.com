@@ -18,13 +18,13 @@ const Account: NextPage = () => {
           Go to <Link href="/identifier">Login!</Link>
         </h1>
 
-        <p className={styles.description}>
+        <div className={styles.description}>
           <div className="font-bold text-primary">
             {" "}
             You are in Authorized Section
           </div>{" "}
           <code className={styles.code}>pages/index.tsx</code>
-        </p>
+        </div>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>

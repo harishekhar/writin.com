@@ -5,8 +5,27 @@ import styles from "./login.module.scss";
 import { Icon, IconType } from "components/Icon/Icon.component";
 
 import { Link, Button, TextField, HorizontalLine } from "components";
+import { LoginMethods } from "./modules";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Ilogin } from "./modules/login.types";
+import Identifier from "pages/identifier/index.page";
 
 const Login: NextPage = () => {
+  const { loadingLoginButton, setLoadingLoginButton, submitLogin } =
+    LoginMethods();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Ilogin>({
+    mode: "onSubmit",
+  });
+
+  const onSubmitLogin: SubmitHandler<Ilogin> = (data) => {
+    submitLogin(data);
+  };
+
   return (
     <>
       <Head>
@@ -38,23 +57,26 @@ const Login: NextPage = () => {
                 </div>
               </div>
 
-              <form className="bg-white rounded-md">
+              <form
+                className="bg-white rounded-md"
+                onSubmit={handleSubmit(onSubmitLogin)}
+              >
                 <div className="flex items-center mb-8 w-full">
                   <TextField
-                    id="email"
+                    id="identifier"
                     type="text"
-                    name="email"
                     placeholder="Enter your mobile number (10 digits) or email ID"
                     label="Enter your mobile number (10 digits) or email ID"
+                    {...register("identifier")}
                   />
                 </div>
                 <div className="flex items-center mb-8 w-full">
                   <TextField
                     id="password"
                     type="password"
-                    name="password"
                     placeholder="min. 8 characters"
                     label="Password"
+                    {...register("password")}
                   />
                 </div>
 
@@ -63,6 +85,7 @@ const Login: NextPage = () => {
                   isFullWidth={true}
                   state="primary"
                   classNames="py-3"
+                  isLoading={loadingLoginButton}
                 >
                   Login
                 </Button>

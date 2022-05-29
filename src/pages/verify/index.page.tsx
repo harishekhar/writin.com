@@ -1,28 +1,25 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "./login.module.scss";
 
 import { Link, Button, TextField, HorizontalLine } from "components";
-
-import { SignUpMethods } from "./modules";
+import { VerifyMethods } from "./modules";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IsignUp } from "./modules/sign-up.types";
+import { IverifyOtp } from "./modules/verify.types";
 
-const SignUp: NextPage = () => {
-  const { loadingSignUpButton, setLoadingSignUpButton, submitSignUp } =
-    SignUpMethods();
+const Verify: NextPage = () => {
+  const { loadingVerifyButton, submitVerify } = VerifyMethods();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IsignUp>({
+  } = useForm<IverifyOtp>({
     mode: "onSubmit",
   });
 
-  const onSubmitSignUp: SubmitHandler<IsignUp> = (data) => {
-    submitSignUp(data);
+  const onSubmitVerify: SubmitHandler<IverifyOtp> = (data) => {
+    submitVerify(data);
   };
 
   return (
@@ -50,52 +47,44 @@ const SignUp: NextPage = () => {
                     className="identifier__icon--src"
                   />
                 </div>
-                <div className="flex text-base identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
-                  Sign in with your data that you entered during your
-                  registration.
+                <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
+                  Enter your OTP, received on your
+                  {/* {type} */}
                 </div>
               </div>
 
               <form
                 className="bg-white rounded-md"
-                onSubmit={handleSubmit(onSubmitSignUp)}
+                onSubmit={handleSubmit(onSubmitVerify)}
               >
                 <div className="flex items-center mb-8 w-full">
                   <TextField
-                    id="fullName"
-                    type="text"
-                    placeholder="e.g. Ruhi Verma"
-                    label="Full Name"
-                    {...register("fullName")}
-                  />
-                </div>
-                <div className="flex items-center mb-8 w-full">
-                  <TextField
-                    id="email"
-                    type="text"
-                    placeholder="Enter your mobile number (10 digits) or email ID"
-                    label="Enter your mobile number (10 digits) or email ID"
-                    {...register("identifier")}
-                  />
-                </div>
-                <div className="flex items-center mb-8 w-full">
-                  <TextField
-                    id="password"
+                    id="identifier"
                     type="password"
-                    placeholder="min. 6 characters"
-                    label="Password"
-                    {...register("password")}
+                    placeholder=""
+                    {...register("otp")}
+                    label={[
+                      "Verify your ",
+                      // `${type}`,
+                      // <b key="first"> {identifier}</b>,
+                    ]}
                   />
                 </div>
+                <TextField
+                  id="identifier"
+                  type="text"
+                  isHidden={true}
+                  {...register("identifier")}
+                />
 
                 <Button
                   type="submit"
                   isFullWidth={true}
                   state="primary"
                   classNames="py-3"
-                  isLoading={loadingSignUpButton}
+                  isLoading={loadingVerifyButton}
                 >
-                  Sign Up
+                  Submit
                 </Button>
                 <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
                   By proceeding, you agree to our
@@ -103,35 +92,12 @@ const SignUp: NextPage = () => {
                   <Link href="/"> Privacy Policy </Link>
                 </div>
               </form>
-              <HorizontalLine className="mt-3 leading-5" centerText="OR" />
-              <div className="flex mt-3">
-                <Button
-                  typeOf="google"
-                  isFullWidth={true}
-                  state="light"
-                  classNames="py-3 mr-2 text-base"
-                  iconSize="large"
-                  iconType="GOOGLE"
-                >
-                  Sign up with Google
-                </Button>
-                <Button
-                  typeOf="linkedin"
-                  state="light"
-                  isFullWidth={true}
-                  classNames="py-3 ml-2 bg-white text-base"
-                  iconSize="large"
-                  iconType="LINKEDIN"
-                >
-                  Sign up with LinkedIn
-                </Button>
-              </div>
             </div>
           </div>
 
           <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
-            Already registered user? &nbsp;
-            <Link href="/identifier" className="font-bold">
+            Login with password? &nbsp;{" "}
+            <Link href="/login" className="font-bold">
               {" "}
               Login{" "}
             </Link>
@@ -142,4 +108,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default Verify;
