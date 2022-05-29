@@ -10,7 +10,7 @@ const { i18n } = require("./next-i18next.config");
 const nextConfig = {
   reactStrictMode: true,
   i18n,
-  pageExtensions: ["page.tsx", "tsx", "js"],
+  pageExtensions: ["page.tsx", "page.jsx"],
   eslint: {
     dirs: ["src/"],
   },

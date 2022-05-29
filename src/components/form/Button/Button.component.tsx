@@ -34,9 +34,11 @@ export type ButtonStyleProps = {
   iconSize?: IconSize;
   /** isLoading? */
   isLoading?: boolean;
+  /** Disabled state */
+  isDisabled?: boolean;
   /** is compact button? */
   isCompact?: boolean;
-
+  // Class names from props
   classNames?: string;
 };
 
@@ -61,12 +63,14 @@ export const Button: React.FC<ButtonProps> = React.forwardRef<
       iconSize = "medium",
       typeOf = "regular",
       isCompact = false,
+      isDisabled = false,
       children,
       classNames,
       ...props
     },
     ref
   ) => {
+    const isDisabledState = isDisabled || isLoading;
     const classnames = cx(
       classNames,
       "rounded-md",
@@ -76,81 +80,42 @@ export const Button: React.FC<ButtonProps> = React.forwardRef<
       "duration-500",
       "font-semibold",
       {
-        ["w-full"]: isFullWidth,
-        ["bg-primary"]: state == "primary",
-        ["text-white"]: state == "primary",
-      }
-    );
-    return (
-      <button ref={ref} className={classnames} {...props}>
-        {isLoading && <Icon iconType={IconType.SPINNER} size={size} />}
-        {iconType && (
-          <Icon
-            iconType={IconType[iconType as keyof typeof IconType]}
-            size={iconSize}
-          />
-        )}
-        {iconType ? <span>{children}</span> : children}
-      </button>
-    );
-  }
-);
-/**
- * A component to render button element of different sizes and states
- */
-export const SocialButton: React.FC<ButtonProps> = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps
->(
-  (
-    {
-      size = "large",
-      hasDarkBg = false,
-      isFullWidth = false,
-      state = "primary",
-      isLoading = false,
-      iconType,
-      iconSize = "medium",
-      isCompact = false,
-      children,
-      classNames,
-      typeOf,
-      ...props
-    },
-    ref
-  ) => {
-    let classes = cx(
-      classNames,
-      "rounded-md",
-      "hover:-translate-y-1",
-      "transition-all",
-      "duration-500",
-      "font-semibold",
-      {
-        ["w-full"]: isFullWidth,
-        ["text-white"]: state == "primary",
-        ["bg-primary"]: state == "primary",
-        ["border"]: state == "light",
-        ["border-gray-2"]: state == "light",
-        ["text-neutral"]: state == "light",
+        "w-full": isFullWidth,
+        "bg-primary text-white": state == "primary",
+        "opacity-75 cursor-not-allowed": isDisabled,
+        "cursor-progress opacity-75": isLoading,
+        "border border-gray-2 text-neutral": state == "light",
       }
     );
 
     return (
-      <button ref={ref} className={classes} {...props}>
-        <div className="flex justify-evenly items-center">
-          <div className="flex items-center">
-            {isLoading && <Icon iconType={IconType.SPINNER} size={size} />}
-            {iconType && (
-              <Icon
-                iconType={IconType[iconType as keyof typeof IconType]}
-                size={iconSize}
-              />
-            )}
-          </div>
-          <div className="flex items-center">
-            {iconType ? <span>{children}</span> : children}
-          </div>
+      <button
+        ref={ref}
+        className={classnames}
+        {...props}
+        disabled={isDisabledState}
+      >
+        <div className="flex justify-around flex-row">
+          {isLoading ? (
+            <>
+              <div className="flex justify-center grow">
+                <Icon iconType={IconType.SPINNER} size={size} />
+              </div>
+              <div className="flex justify-start grow"> Processing...</div>
+            </>
+          ) : iconType ? (
+            <>
+              <div className="flex justify-center grow">
+                <Icon
+                  iconType={IconType[iconType as keyof typeof IconType]}
+                  size={iconSize}
+                />
+              </div>
+              <div className="flex justify-start grow">{children}</div>
+            </>
+          ) : (
+            children
+          )}
         </div>
       </button>
     );
@@ -158,4 +123,3 @@ export const SocialButton: React.FC<ButtonProps> = React.forwardRef<
 );
 
 Button.displayName = "Button";
-SocialButton.displayName = "SocialButton";

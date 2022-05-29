@@ -4,15 +4,28 @@ import Image from "next/image";
 import styles from "./login.module.scss";
 import { Icon, IconType } from "components/Icon/Icon.component";
 
-import {
-  Link,
-  Button,
-  SocialButton,
-  TextField,
-  HorizontalLine,
-} from "components";
+import { Link, Button, TextField, HorizontalLine } from "components";
+import { LoginMethods } from "./modules";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Ilogin } from "./modules/login.types";
+import Identifier from "pages/identifier/index.page";
 
 const Login: NextPage = () => {
+  const { loadingLoginButton, setLoadingLoginButton, submitLogin } =
+    LoginMethods();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Ilogin>({
+    mode: "onSubmit",
+  });
+
+  const onSubmitLogin: SubmitHandler<Ilogin> = (data) => {
+    submitLogin(data);
+  };
+
   return (
     <>
       <Head>
@@ -44,23 +57,26 @@ const Login: NextPage = () => {
                 </div>
               </div>
 
-              <form className="bg-white rounded-md">
+              <form
+                className="bg-white rounded-md"
+                onSubmit={handleSubmit(onSubmitLogin)}
+              >
                 <div className="flex items-center mb-8 w-full">
                   <TextField
-                    id="email"
+                    id="identifier"
                     type="text"
-                    name="email"
                     placeholder="Enter your mobile number (10 digits) or email ID"
                     label="Enter your mobile number (10 digits) or email ID"
+                    {...register("identifier")}
                   />
                 </div>
                 <div className="flex items-center mb-8 w-full">
                   <TextField
                     id="password"
                     type="password"
-                    name="password"
                     placeholder="min. 8 characters"
                     label="Password"
+                    {...register("password")}
                   />
                 </div>
 
@@ -69,6 +85,7 @@ const Login: NextPage = () => {
                   isFullWidth={true}
                   state="primary"
                   classNames="py-3"
+                  isLoading={loadingLoginButton}
                 >
                   Login
                 </Button>
@@ -80,7 +97,7 @@ const Login: NextPage = () => {
               </form>
               <HorizontalLine className="mt-3 leading-5" centerText="OR" />
               <div className="flex mt-3">
-                <SocialButton
+                <Button
                   typeOf="google"
                   isFullWidth={true}
                   state="light"
@@ -89,8 +106,8 @@ const Login: NextPage = () => {
                   iconType="GOOGLE"
                 >
                   Login with Google
-                </SocialButton>
-                <SocialButton
+                </Button>
+                <Button
                   typeOf="linkedin"
                   state="light"
                   isFullWidth={true}
@@ -99,7 +116,7 @@ const Login: NextPage = () => {
                   iconType="LINKEDIN"
                 >
                   Login with LinkedIn
-                </SocialButton>
+                </Button>
               </div>
             </div>
           </div>
@@ -115,7 +132,7 @@ const Login: NextPage = () => {
 
               <div className="flex">
                 Don&apos;t have an account? &nbsp;{" "}
-                <Link href="/signup" className="font-bold">
+                <Link href="/sign-up" className="font-bold">
                   {" "}
                   Sign up{" "}
                 </Link>
