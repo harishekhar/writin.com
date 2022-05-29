@@ -38,7 +38,7 @@ const VerifyMethods = (): IverifyMethods => {
   };
 };
 
-export { VerifyMethods };
+export default VerifyMethods;
 
 // const [loadingIdentifierButton, setLoadingIdentifierButton] = useState(false);
 // const baseUrl = "http://localhost:8080";

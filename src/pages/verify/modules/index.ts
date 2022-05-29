@@ -1,2 +1,2 @@
 // export * from "./sign-up.types";
-export { VerifyMethods } from "./verify.methods";
+export { default as VerifyMethods } from "./verify.methods";

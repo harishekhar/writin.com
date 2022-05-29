@@ -20,7 +20,6 @@ const LoginMethods = (): IloginMethods => {
     try {
       const { data: postLoginResp }: AxiosResponse =
         await authService.postLogin(data);
-      debugger;
       if (postLoginResp.tokens) {
         router.push("/account");
       }
@@ -37,7 +36,7 @@ const LoginMethods = (): IloginMethods => {
   };
 };
 
-export { LoginMethods };
+export default LoginMethods;
 
 // const [loadingIdentifierButton, setLoadingIdentifierButton] = useState(false);
 // const baseUrl = "http://localhost:8080";

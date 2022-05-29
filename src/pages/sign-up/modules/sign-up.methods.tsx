@@ -29,7 +29,7 @@ const SignUpMethods = (): IsignUpMethods => {
   };
 };
 
-export { SignUpMethods };
+export default SignUpMethods;
 
 // const [loadingIdentifierButton, setLoadingIdentifierButton] = useState(false);
 // const baseUrl = "http://localhost:8080";

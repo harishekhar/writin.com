@@ -132,7 +132,7 @@ const Login: NextPage = () => {
 
               <div className="flex">
                 Don&apos;t have an account? &nbsp;{" "}
-                <Link href="/signup" className="font-bold">
+                <Link href="/sign-up" className="font-bold">
                   {" "}
                   Sign up{" "}
                 </Link>

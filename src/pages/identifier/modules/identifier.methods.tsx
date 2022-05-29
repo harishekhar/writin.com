@@ -125,7 +125,7 @@ const IdentifierMethods = (): IdentifierMethods => {
   };
 };
 
-export { IdentifierMethods };
+export default IdentifierMethods;
 
 // const [loadingIdentifierButton, setLoadingIdentifierButton] = useState(false);
 // const baseUrl = "http://localhost:8080";

@@ -1,2 +1,2 @@
 // export * from "./sign-up.types";
-export { SignUpMethods } from "./sign-up.methods";
+export { default as SignUpMethods } from "./sign-up.methods";
