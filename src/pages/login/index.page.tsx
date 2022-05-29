@@ -4,13 +4,7 @@ import Image from "next/image";
 import styles from "./login.module.scss";
 import { Icon, IconType } from "components/Icon/Icon.component";
 
-import {
-  Link,
-  Button,
-  SocialButton,
-  TextField,
-  HorizontalLine,
-} from "components";
+import { Link, Button, TextField, HorizontalLine } from "components";
 
 const Login: NextPage = () => {
   return (
@@ -80,7 +74,7 @@ const Login: NextPage = () => {
               </form>
               <HorizontalLine className="mt-3 leading-5" centerText="OR" />
               <div className="flex mt-3">
-                <SocialButton
+                <Button
                   typeOf="google"
                   isFullWidth={true}
                   state="light"
@@ -89,8 +83,8 @@ const Login: NextPage = () => {
                   iconType="GOOGLE"
                 >
                   Login with Google
-                </SocialButton>
-                <SocialButton
+                </Button>
+                <Button
                   typeOf="linkedin"
                   state="light"
                   isFullWidth={true}
@@ -99,7 +93,7 @@ const Login: NextPage = () => {
                   iconType="LINKEDIN"
                 >
                   Login with LinkedIn
-                </SocialButton>
+                </Button>
               </div>
             </div>
           </div>

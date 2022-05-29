@@ -3,13 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "./login.module.scss";
 
-import {
-  Link,
-  Button,
-  SocialButton,
-  TextField,
-  HorizontalLine,
-} from "components";
+import { Link, Button, TextField, HorizontalLine } from "components";
 
 const SignUp: NextPage = () => {
   return (
@@ -88,7 +82,7 @@ const SignUp: NextPage = () => {
               </form>
               <HorizontalLine className="mt-3 leading-5" centerText="OR" />
               <div className="flex mt-3">
-                <SocialButton
+                <Button
                   typeOf="google"
                   isFullWidth={true}
                   state="light"
@@ -97,8 +91,8 @@ const SignUp: NextPage = () => {
                   iconType="GOOGLE"
                 >
                   Sign up with Google
-                </SocialButton>
-                <SocialButton
+                </Button>
+                <Button
                   typeOf="linkedin"
                   state="light"
                   isFullWidth={true}
@@ -107,7 +101,7 @@ const SignUp: NextPage = () => {
                   iconType="LINKEDIN"
                 >
                   Sign up with LinkedIn
-                </SocialButton>
+                </Button>
               </div>
             </div>
           </div>

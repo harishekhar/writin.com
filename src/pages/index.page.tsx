@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Go to <Link href="/identifier">Login!</Link>
+          Go to <Link href="/login">Login!</Link>
         </h1>
 
         <p className={styles.description}>

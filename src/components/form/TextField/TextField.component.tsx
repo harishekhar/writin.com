@@ -1,12 +1,13 @@
 import React from "react";
 
 import styles from "./TextField.module.scss";
+import cx from "classnames";
 
 type TextFieldOnlyProps = {
   /** has dark background? */
   hasDarkBg?: boolean;
   /** What label should be shown for this field? */
-  label?: string;
+  label?: string | any;
   /** What is the helper text of the error state? */
   helperText?: string;
   /** has error? */
@@ -15,6 +16,7 @@ type TextFieldOnlyProps = {
   className?: string;
   /** is compact text field? */
   isCompact?: boolean;
+  isHidden?: boolean;
 };
 
 export type TextFieldInputProps = TextFieldOnlyProps &
@@ -35,11 +37,15 @@ export const TextField = React.forwardRef<
     hasError,
     placeholder = " ",
     isCompact = false,
+    isHidden = false,
     ...rest
   } = props;
 
+  const classes = cx("w-full", {
+    hidden: isHidden,
+  });
   return (
-    <div className="w-full">
+    <div className={classes}>
       <div className="text-sm mb-1">
         {label && (
           <label className={styles.label} htmlFor={props.id}>
