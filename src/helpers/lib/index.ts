@@ -1,2 +1,2 @@
 export { local, session } from "./storage";
-export { delay } from "./utils";
+export { delay, routerConfig } from "./utils";

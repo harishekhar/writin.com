@@ -6,9 +6,11 @@ import { Link, Button, TextField, HorizontalLine } from "components";
 import { VerifyMethods } from "./modules";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IverifyOtp } from "./modules/verify.types";
+import validator from "validator";
 
-const Verify: NextPage = () => {
-  const { loadingVerifyButton, submitVerify } = VerifyMethods();
+const Verify = () => {
+  console.count("verify");
+  const { loadingVerifyButton, submitVerify, identifier } = VerifyMethods();
 
   const {
     register,
@@ -21,6 +23,9 @@ const Verify: NextPage = () => {
   const onSubmitVerify: SubmitHandler<IverifyOtp> = (data) => {
     submitVerify(data);
   };
+
+  const type =
+    identifier && validator.isEmail(identifier) ? "email" : "phone number";
 
   return (
     <>
@@ -48,8 +53,7 @@ const Verify: NextPage = () => {
                   />
                 </div>
                 <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
-                  Enter your OTP, received on your
-                  {/* {type} */}
+                  Enter your OTP, received on your {type}
                 </div>
               </div>
 
@@ -59,23 +63,17 @@ const Verify: NextPage = () => {
               >
                 <div className="flex items-center mb-8 w-full">
                   <TextField
-                    id="identifier"
-                    type="password"
+                    id="otp"
+                    type="text"
                     placeholder=""
                     {...register("otp")}
                     label={[
                       "Verify your ",
-                      // `${type}`,
-                      // <b key="first"> {identifier}</b>,
+                      `${type}`,
+                      <b key="first"> {identifier}</b>,
                     ]}
                   />
                 </div>
-                <TextField
-                  id="identifier"
-                  type="text"
-                  isHidden={true}
-                  {...register("identifier")}
-                />
 
                 <Button
                   type="submit"
@@ -108,4 +106,6 @@ const Verify: NextPage = () => {
   );
 };
 
+Verify.isProtectedPage = true;
+Verify.displayName = Verify;
 export default Verify;
