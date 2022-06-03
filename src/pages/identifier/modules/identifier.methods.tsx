@@ -2,39 +2,20 @@ import { AxiosResponse } from "axios";
 import { useState } from "react";
 import { IdentifierService } from "service";
 import { useRouter } from "next/router";
+import { session } from "helpers/lib";
+import dayjs from "dayjs";
+import { delay, routerConfig } from "helpers/lib";
 
-interface submitOtp {
-  identifier: string;
-  otp: string;
-}
-
-interface Iidentifier {
-  identifier?: string;
-}
-
-interface IidentifierHash {
-  identifier?: string;
-  otp?: string;
-  id?: string;
-  isVerified?: boolean;
-}
+import { Iidentifier, IidentifierHash } from "./identifier.types";
 
 interface IdentifierMethods {
   loadingIdentifierButton: boolean;
   setLoadingIdentifierButton: (loadingIdentifierButton: boolean) => void;
-
-  pageView: string;
-  setPageView: (pageView: string) => void;
-
   error: string;
   setError: (error: string) => void;
-
   baseUrl: string;
   submitIdentifier: (data: { identifier: string }) => void;
   identifier: Iidentifier;
-  loadingOtpButton: boolean;
-  setLoadingOtpButton: (loadingOtpButton: boolean) => void;
-  submitOtp: (data: submitOtp) => void;
   identifierHash: IidentifierHash;
 }
 
@@ -57,18 +38,10 @@ const IdentifierMethods = (): IdentifierMethods => {
     (identifierHash: IidentifierHash) => void
   ] = useState<IidentifierHash>({});
 
-  const [pageView, setPageView]: [string, (pageView: string) => void] =
-    useState<string>("identifier");
-
-  const [loadingOtpButton, setLoadingOtpButton] = useState(false);
-
   const [error, setError]: [string, (error: string) => void] =
     useState<string>("");
 
   const baseUrl: string = "http://localhost:8080";
-
-  const delay = (duration: number) =>
-    new Promise((resolve) => setTimeout(resolve, duration));
 
   const submitIdentifier = async (data: {
     identifier: string;
@@ -78,14 +51,25 @@ const IdentifierMethods = (): IdentifierMethods => {
 
     await identifierService
       .postSendOtp(data)
-      .then(async (data: AxiosResponse) => {
-        const { data: response } = data;
-        const { user } = response;
+      .then(async (respData: AxiosResponse) => {
+        const { data: response } = respData;
+        const { user }: { user: IidentifierHash } = response;
 
         setIdentifierHash(user);
-        // await delay(500);
+        await delay(500);
         setLoadingIdentifierButton(false);
-        setPageView("verifyOtp");
+        const validUntil = dayjs().add(5, "minute");
+        const storageObj: [string, dayjs.Dayjs, IidentifierHash] = [
+          routerConfig["verify"].name,
+          validUntil,
+          user,
+        ];
+        const encIdentifier = btoa(data.identifier);
+
+        const viewData: [string, IidentifierHash] = [encIdentifier, user];
+        session().set("view", storageObj);
+        session().set("viewData", viewData);
+        router.push(routerConfig["verify"].name);
       })
       .catch((error) => {
         setLoadingIdentifierButton(false);
@@ -93,34 +77,14 @@ const IdentifierMethods = (): IdentifierMethods => {
       });
   };
 
-  const submitOtp = async (data: submitOtp): Promise<void> => {
-    data.identifier = identifierHash.identifier || "";
-    setLoadingOtpButton(true);
-    try {
-      const respData = await identifierService.postVerifyOtp(data);
-      delay(500);
-      setLoadingOtpButton(false);
-      setIdentifierHash({});
-      setIdentifier({});
-      router.push("/account");
-    } catch (error) {
-    } finally {
-    }
-  };
-
   return {
     loadingIdentifierButton,
     setLoadingIdentifierButton,
-    pageView,
-    setPageView,
     identifier,
     error,
     setError,
     baseUrl,
     submitIdentifier,
-    setLoadingOtpButton,
-    loadingOtpButton,
-    submitOtp,
     identifierHash,
   };
 };

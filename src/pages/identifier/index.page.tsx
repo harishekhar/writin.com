@@ -11,65 +11,29 @@ import {
 
 import { Link, Button, TextField, HorizontalLine } from "components";
 import { IdentifierMethods } from "./modules";
-import validator from "validator";
-import { useEffect, useMemo } from "react";
 
-interface IidentifierInput {
-  identifier: string;
-}
-interface IotpInput extends IidentifierInput {
-  otp: string;
-}
+import { IidentifierInput } from "./modules/identifier.types";
 
-const Identifier: React.FC = () => {
+const Identifier: NextPage = () => {
   console.count("I rendered ");
-  const {
-    identifier,
-    loadingIdentifierButton,
-    pageView,
-    submitIdentifier,
-    loadingOtpButton,
-    submitOtp,
-    identifierHash,
-  } = IdentifierMethods();
+  const { identifier, loadingIdentifierButton, submitIdentifier } =
+    IdentifierMethods();
 
   const {
-    register: register1,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<IidentifierInput>({
     mode: "onSubmit",
   });
 
-  const {
-    register: registerOtp,
-    formState: { errors: errorsOtp },
-    handleSubmit: handleSubmitOtp,
-    setValue: setValueOtp,
-  } = useForm<IotpInput>({
-    mode: "onSubmit",
-  });
-
-  useEffect(() => {
-    setValueOtp("otp", identifierHash.otp as string);
-    return;
-  }, [identifierHash, setValueOtp]);
-
   const onIdentifierSubmit: SubmitHandler<IidentifierInput> = (data) => {
     submitIdentifier(data);
-  };
-
-  const onOtpSubmit: SubmitHandler<IotpInput> = (data) => {
-    submitOtp(data);
   };
 
   const {
     identifier: { identifier: identifierInput },
   }: any = { identifier };
-  const type =
-    identifierInput && validator.isEmail(identifierInput)
-      ? "email"
-      : "phone number";
 
   return (
     <>
@@ -83,171 +47,91 @@ const Identifier: React.FC = () => {
         {/* First half  */}
         <div className="hidden sm:hidden md:hidden lg:flex w-full lg:w-3/5 justify-around items-center bg-cover bg-[url('https://images.unsplash.com/photo-1650825556125-060e52d40bd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')]"></div>
         {/* Second Half  */}
-        {pageView == "identifier" ? (
-          <div className="flex w-full lg:w-2/5 flex-col">
-            <div className="flex justify-center flex-grow items-center bg-white space-y-8 font-sans">
-              <div className="w-full px-5 sm:px-20 md:px-16 lg:px-8 xl:px-10">
-                <div className="flex  w-full p-5 flex-col ">
-                  <div className="flex justify-center identifier__icon w-full ">
-                    <Image
-                      src="/vercel.svg"
-                      alt="icon"
-                      width={74}
-                      height={74}
-                      className="identifier__icon--src"
-                    />
-                  </div>
-                  <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
-                    Sign in with your data that you entered during your
-                    registration.
-                  </div>
+
+        <div className="flex w-full lg:w-2/5 flex-col">
+          <div className="flex justify-center flex-grow items-center bg-white space-y-8 font-sans">
+            <div className="w-full px-5 sm:px-20 md:px-16 lg:px-8 xl:px-10">
+              <div className="flex  w-full p-5 flex-col ">
+                <div className="flex justify-center identifier__icon w-full ">
+                  <Image
+                    src="/vercel.svg"
+                    alt="icon"
+                    width={74}
+                    height={74}
+                    className="identifier__icon--src"
+                  />
                 </div>
-
-                <form
-                  className="bg-white rounded-md"
-                  onSubmit={handleSubmit(onIdentifierSubmit)}
-                >
-                  <div className="flex items-center mb-8 w-full">
-                    <TextField
-                      id="identifier"
-                      type="text"
-                      placeholder="Enter your mobile number (10 digits) or email ID"
-                      label="Enter your mobile number (10 digits) or email ID"
-                      {...register1("identifier", { required: true })}
-                      helperText={errors.identifier && "identifier is required"}
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    isFullWidth={true}
-                    state="primary"
-                    classNames="py-3"
-                    isLoading={loadingIdentifierButton}
-                  >
-                    Next
-                  </Button>
-                  <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
-                    By proceeding, you agree to our
-                    <Link href="/"> Terms of Services </Link> and
-                    <Link href="/"> Privacy Policy </Link>
-                  </div>
-                </form>
-                <HorizontalLine className="mt-3 leading-5" centerText="OR" />
-                <div className="flex mt-3">
-                  <Button
-                    typeOf="google"
-                    isFullWidth={true}
-                    state="light"
-                    classNames="py-3 mr-2 text-base"
-                    iconSize="large"
-                    iconType="GOOGLE"
-                    isLoading={false}
-                  >
-                    Login with Google
-                  </Button>
-                  <Button
-                    typeOf="linkedin"
-                    state="light"
-                    isFullWidth={true}
-                    classNames="py-3 ml-2 bg-white text-base"
-                    iconSize="large"
-                    iconType="LINKEDIN"
-                  >
-                    Login with LinkedIn
-                  </Button>
+                <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
+                  Sign in with your data that you entered during your
+                  registration.
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
-              Don&apos;t have an account? &nbsp;{" "}
-              <Link href="/sign-up" className="font-bold">
-                {" "}
-                Sign up{" "}
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div className="flex w-full lg:w-2/5 flex-col">
-            <div className="flex justify-center flex-grow items-center bg-white space-y-8 font-sans">
-              <div className="w-full px-5 sm:px-20 md:px-16 lg:px-8 xl:px-10">
-                <div className="flex  w-full p-5 flex-col ">
-                  <div className="flex justify-center identifier__icon w-full ">
-                    <Image
-                      src="/vercel.svg"
-                      alt="icon"
-                      width={74}
-                      height={74}
-                      className="identifier__icon--src"
-                    />
-                  </div>
-                  <div className="flex text-sm identifier__info justify-center font-normal text-gray-600 mt-7 mb-6">
-                    Enter your OTP, received on your {type}
-                  </div>
+              <form
+                className="bg-white rounded-md"
+                onSubmit={handleSubmit(onIdentifierSubmit)}
+              >
+                <div className="flex items-center mb-8 w-full">
+                  <TextField
+                    id="identifier"
+                    type="text"
+                    placeholder="Enter your mobile number (10 digits) or email ID"
+                    label="Enter your mobile number (10 digits) or email ID"
+                    {...register("identifier", { required: true })}
+                    helperText={errors.identifier && "identifier is required"}
+                  />
                 </div>
 
-                <form
-                  className="bg-white rounded-md"
-                  onSubmit={handleSubmitOtp(onOtpSubmit)}
+                <Button
+                  type="submit"
+                  isFullWidth={true}
+                  state="primary"
+                  classNames="py-3"
+                  isLoading={loadingIdentifierButton}
                 >
-                  <div className="flex items-center mb-8 w-full">
-                    <TextField
-                      id="otp"
-                      type="text"
-                      label={[
-                        "Verify your ",
-                        `${type}`,
-                        " ",
-                        ` '${identifier.identifier}'`,
-                      ]}
-                      {...registerOtp("otp", {
-                        maxLength: {
-                          value: 4,
-                          message: "error message", // JS only: <p>error message</p> TS only support string
-                        },
-                      })}
-                      key={identifierHash.identifier}
-                      helperText={errorsOtp?.otp?.message}
-                      defaultValue={identifierHash.otp}
-                    />
-                    <TextField
-                      id="identifierOtp"
-                      type="text"
-                      isHidden={true}
-                      hidden
-                      {...registerOtp("identifier")}
-                      defaultValue={identifierHash.identifier}
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    isFullWidth={true}
-                    state="primary"
-                    classNames="py-3"
-                    isLoading={loadingOtpButton}
-                  >
-                    Submit
-                  </Button>
-                  <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
-                    By proceeding, you agree to our
-                    <Link href="/"> Terms of Services </Link> and
-                    <Link href="/"> Privacy Policy </Link>
-                  </div>
-                </form>
+                  Next
+                </Button>
+                <div className="identifier__info text-xs font-normal leading-5 mt-2 text-neutral">
+                  By proceeding, you agree to our
+                  <Link href="/"> Terms of Services </Link> and
+                  <Link href="/"> Privacy Policy </Link>
+                </div>
+              </form>
+              <HorizontalLine className="mt-3 leading-5" centerText="OR" />
+              <div className="flex mt-3">
+                <Button
+                  typeOf="google"
+                  isFullWidth={true}
+                  state="light"
+                  classNames="py-3 mr-2 text-base"
+                  iconSize="large"
+                  iconType="GOOGLE"
+                  isLoading={false}
+                >
+                  Login with Google
+                </Button>
+                <Button
+                  typeOf="linkedin"
+                  state="light"
+                  isFullWidth={true}
+                  classNames="py-3 ml-2 bg-white text-base"
+                  iconSize="large"
+                  iconType="LINKEDIN"
+                >
+                  Login with LinkedIn
+                </Button>
               </div>
             </div>
-
-            <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
-              Login with password? &nbsp;{" "}
-              <Link href="/login" className="font-bold">
-                {" "}
-                Login{" "}
-              </Link>
-            </div>
           </div>
-        )}
+
+          <div className="flex items-end justify-center flex-grow-0 mb-10 text-sm identifier__info font-normal leading-5 mt-2 text-neutral">
+            Don&apos;t have an account? &nbsp;{" "}
+            <Link href="/sign-up" className="font-bold">
+              {" "}
+              Sign up{" "}
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );
