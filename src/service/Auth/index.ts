@@ -1,6 +1,6 @@
 import axios from "../axios";
 import { env } from "process";
-import { Ilogin, IsignUp } from "./types";
+import { Ilogin, IsignUp, IcreateProfile } from "./types";
 import { AxiosResponse } from "axios";
 
 // const baseUrl = window.localhost[env].baseUrl;
@@ -25,6 +25,15 @@ class AuthService {
 
   postLogin(body: Ilogin): Promise<AxiosResponse<Ilogin, any>> {
     return axios.post<Ilogin>(`/${this.version}/${this.service}/sign-in`, body);
+  }
+
+  postSetPassword(
+    body: IcreateProfile
+  ): Promise<AxiosResponse<IcreateProfile, any>> {
+    return axios.post<IcreateProfile>(
+      `/${this.version}/${this.service}/set-password`,
+      body
+    );
   }
 }
 

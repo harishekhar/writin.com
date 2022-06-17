@@ -2,17 +2,15 @@ import { AxiosResponse } from "axios";
 import { useState } from "react";
 import { IdentifierService } from "service";
 import { useRouter } from "next/router";
-import { session } from "helpers/lib";
-import dayjs from "dayjs";
-import { delay, routerConfig } from "helpers/lib";
-
+import { delay } from "helpers/lib";
 import { Iidentifier, IidentifierHash } from "./identifier.types";
+import { setNextPageView } from "components/lib/common.component";
 
 interface IdentifierMethods {
   loadingIdentifierButton: boolean;
   setLoadingIdentifierButton: (loadingIdentifierButton: boolean) => void;
-  error: string;
-  setError: (error: string) => void;
+  error: unknown;
+  setError: (error: unknown) => void;
   baseUrl: string;
   submitIdentifier: (data: { identifier: string }) => void;
   identifier: Iidentifier;
@@ -23,6 +21,7 @@ const identifierService = new IdentifierService("v1");
 
 const IdentifierMethods = (): IdentifierMethods => {
   const router = useRouter();
+
   const [loadingIdentifierButton, setLoadingIdentifierButton]: [
     boolean,
     (loadingIdentifierButton: boolean) => void
@@ -38,8 +37,8 @@ const IdentifierMethods = (): IdentifierMethods => {
     (identifierHash: IidentifierHash) => void
   ] = useState<IidentifierHash>({});
 
-  const [error, setError]: [string, (error: string) => void] =
-    useState<string>("");
+  const [error, setError]: [unknown, (error: unknown) => void] =
+    useState<unknown>("");
 
   const baseUrl: string = "http://localhost:8080";
 
@@ -49,32 +48,37 @@ const IdentifierMethods = (): IdentifierMethods => {
     setLoadingIdentifierButton(true);
     setIdentifier(data);
 
-    await identifierService
-      .postSendOtp(data)
-      .then(async (respData: AxiosResponse) => {
-        const { data: response } = respData;
-        const { user }: { user: IidentifierHash } = response;
+    // await identifierService
+    //   .postSendOtp(data)
+    //   .then(async (respData: AxiosResponse) => {
+    //     const { data: response } = respData;
+    //     const { user }: { user: IidentifierHash } = response;
 
-        setIdentifierHash(user);
-        await delay(500);
-        setLoadingIdentifierButton(false);
-        const validUntil = dayjs().add(5, "minute");
-        const storageObj: [string, dayjs.Dayjs, IidentifierHash] = [
-          routerConfig["verify"].name,
-          validUntil,
-          user,
-        ];
-        const encIdentifier = btoa(data.identifier);
+    //     setIdentifierHash(user);
+    //     await delay(500);
+    //     setLoadingIdentifierButton(false);
+    //     setNextPageView("verify", user, data.identifier, router);
+    //   })
+    //   .catch((error) => {
+    //     setLoadingIdentifierButton(false);
+    //     setError(error);
+    //   });
 
-        const viewData: [string, IidentifierHash] = [encIdentifier, user];
-        session().set("view", storageObj);
-        session().set("viewData", viewData);
-        router.push(routerConfig["verify"].name);
-      })
-      .catch((error) => {
-        setLoadingIdentifierButton(false);
-        setError(error);
-      });
+    try {
+      const postSendOtpResp: AxiosResponse =
+        await identifierService.postSendOtp(data);
+
+      const { data: response } = postSendOtpResp;
+      const { user }: { user: IidentifierHash } = response;
+
+      setIdentifierHash(user);
+      await delay(500);
+      setLoadingIdentifierButton(false);
+      setNextPageView("verify", user, data.identifier, router);
+    } catch (error) {
+      setLoadingIdentifierButton(false);
+      setError(error);
+    }
   };
 
   return {
@@ -90,10 +94,3 @@ const IdentifierMethods = (): IdentifierMethods => {
 };
 
 export default IdentifierMethods;
-
-// const [loadingIdentifierButton, setLoadingIdentifierButton] = useState(false);
-// const baseUrl = "http://localhost:8080";
-// const submitIdentifier = () => {
-//   IdentifierService(baseUrl).PostSendOtp();
-//   setLoadingIdentifierButton(true);
-// };

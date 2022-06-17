@@ -3,10 +3,11 @@ import { session } from "helpers/lib";
 import { delay } from "helpers/lib/utils";
 import { useRouter } from "next/router";
 
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import { IdentifierService } from "service";
 
 import { IverifyMethods, IverifyOtp } from "./verify.types";
+import { setNextPageView, setAuthToken } from "components/lib/common.component";
 
 const identifierService = new IdentifierService("v1");
 
@@ -24,15 +25,16 @@ const VerifyMethods = (): IverifyMethods => {
 
   useEffect(() => {
     const viewData = session().get("viewData");
+    const view = session().get("view");
 
-    if (!viewData) {
+    if (viewData && view[0] == "verify") {
+      const [encIdentifier] = viewData;
+      setIdentifer(atob(encIdentifier));
+    } else {
       return () => {
         router.push("/");
       };
     }
-
-    const [encIdentifier] = viewData;
-    setIdentifer(atob(encIdentifier));
   }, [router]);
 
   const submitVerify = async (data: IverifyOtp) => {
@@ -42,12 +44,17 @@ const VerifyMethods = (): IverifyMethods => {
     const { identifier: identifierHash } = user;
     data.identifier = identifierHash;
     try {
-      const { data: postVerifyResp }: AxiosResponse =
+      const postVerifyResp: AxiosResponse =
         await identifierService.postVerifyOtp(data);
-      if (postVerifyResp.tokens) {
+
+      const { data: response } = postVerifyResp;
+      const { user: postVerifyData, tokens } = response;
+      const identifier = postVerifyData.email || postVerifyData.phoneNumber;
+      if (tokens) {
+        setAuthToken(tokens);
         router.push("/account");
       } else {
-        router.push("create-profile");
+        setNextPageView("create-profile", postVerifyData, identifier, router);
       }
     } catch (error) {
     } finally {
