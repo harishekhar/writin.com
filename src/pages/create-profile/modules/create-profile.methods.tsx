@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { setAuthToken } from "components/lib/common.component";
+import { setAuthToken } from "components/lib/Common.component";
 import { delay } from "helpers/lib/utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -22,7 +22,11 @@ const CreateProfileMethods = (): IcreateProfileMethods => {
   useEffect(() => {
     const viewData = session().get("viewData");
     const view = session().get("view");
-    if (!viewData && view[0] != "create-profile") {
+    if (!viewData && !view) {
+      return () => {
+        router.push("/");
+      };
+    } else if (view[0] != "create-profile") {
       return () => {
         router.push("/");
       };

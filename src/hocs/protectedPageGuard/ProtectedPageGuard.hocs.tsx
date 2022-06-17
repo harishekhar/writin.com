@@ -29,10 +29,6 @@ export const ProtectedPageGuard: React.FC<IprotectedPageGuard> = ({
     setValidBy(validUntil);
   }, [router]);
 
-  if (dayjs(validBy).isBefore(dayjs())) {
-    router.push("/");
-  }
-
   if (nextView && dayjs(validBy).isAfter(dayjs())) {
     return children;
   }

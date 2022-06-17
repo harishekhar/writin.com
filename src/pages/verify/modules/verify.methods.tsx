@@ -7,7 +7,7 @@ import { Component, useEffect, useState } from "react";
 import { IdentifierService } from "service";
 
 import { IverifyMethods, IverifyOtp } from "./verify.types";
-import { setNextPageView, setAuthToken } from "components/lib/common.component";
+import { setNextPageView, setAuthToken } from "components/lib/Common.component";
 
 const identifierService = new IdentifierService("v1");
 
@@ -27,11 +27,12 @@ const VerifyMethods = (): IverifyMethods => {
     const viewData = session().get("viewData");
     const view = session().get("view");
 
-    if (viewData && view[0] == "verify") {
+    if (viewData && view && view[0] == "verify") {
       const [encIdentifier] = viewData;
       setIdentifer(atob(encIdentifier));
     } else {
       return () => {
+        debugger;
         router.push("/");
       };
     }
