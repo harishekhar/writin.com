@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "17.0.21",
-    "@types/react": "18.0.9",
+    "@types/react": "18.0.15",
     "@types/validator": "^13.7.2",
     "autoprefixer": "10.4.7",
     "caniuse-api": "3.0.0",
